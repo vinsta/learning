@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
         printf("hello, I am child (pid:%d)\n", (int)getpid());
 	char *myargs[3];
 	myargs[0] = strdup("wc");
-	myargs[1] = strdup("p3.c");
+	myargs[1] = strdup("fork.c");
 	myargs[2] = NULL;
 	execvp(myargs[0], myargs);
 	printf("this shouldn't print out");
