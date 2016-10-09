@@ -70,9 +70,9 @@ int postOrderAccessBinTree(BinTreeNode* node)
         return 0;
     }
 
-    printf("%d ", node->data);
     postOrderAccessBinTree(node->lChild);
     postOrderAccessBinTree(node->rChild);
+    printf("%d ", node->data);
 
     return 0;
 }
@@ -102,10 +102,37 @@ int countNodeNumber(BinTreeNode* node)
     return nodeNumber;
 }
 
+int countLeafNumber(BinTreeNode* node)
+{
+    static int leafNumber;
+    if (node == NULL)
+    {
+        return leafNumber;
+    }
+
+    if (node->lChild == NULL && node->rChild == NULL)
+    {
+        leafNumber++;
+    }
+    else
+    {
+        if (node->lChild != NULL)
+        {
+            countLeafNumber(node->lChild);
+        }
+        if (node->rChild != NULL)
+        {
+            countLeafNumber(node->rChild);
+        }
+    }
+
+    return leafNumber;
+}
+
 int main(int argc, const char* argv[])
 {
     BinTreeNode* node;
-    int num = 0, deep = 0;
+    int numNode = 0, numLeaf = 0, deep = 0;
 
     printf("Please input an integer for root node, -1 means no need to create this node\n");
     createBinTree(&node);
@@ -122,8 +149,11 @@ int main(int argc, const char* argv[])
     deep = deepOfTree(node);
     printf("\ndeep of bin tree is %d\n", deep);
 
-    num = countNodeNumber(node);
-    printf("number of node in bin tree is %d\n", num);
+    numNode = countNodeNumber(node);
+    printf("number of node in bin tree is %d\n", numNode);
+
+    numLeaf = countLeafNumber(node);
+    printf("number of leaf in bin tree is %d\n", numLeaf);
 
     return 0;
 }
